@@ -55,7 +55,15 @@ apt-get -qq install jsvc &> /dev/null
 
 echo "[+] Downloading the latest Omada Software Controller package"
 OmadaPackageUrl=$(curl -fsSL https://support.omadanetworks.com/us/product/omada-software-controller/ | grep -oPi '<a[^>]*href="\K[^"]*Linux_x64.deb[^"]*' | head -n 1)
+if [ -z "$OmadaPackageUrl" ]; then
+    echo -e "\e[1;31m[!] Failed to retrieve the Omada Software Controller package URL.\e[0m"
+    exit 1
+fi
 wget -qP /tmp/ $OmadaPackageUrl
+if [ ! -f "/tmp/$(basename $OmadaPackageUrl)" ]; then
+    echo -e "\e[1;31m[!] Failed to download the Omada Software Controller package.\e[0m"
+    exit 1
+fi
 echo "[+] Installing Omada Software Controller $(echo $(basename $OmadaPackageUrl) | tr "_" "\n" | sed -n '4p')"
 dpkg -i /tmp/$(basename $OmadaPackageUrl) &> /dev/null
 
