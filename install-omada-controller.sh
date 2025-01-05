@@ -57,8 +57,10 @@ echo "[+] Downloading the latest Omada Software Controller package"
 OmadaPackageUrl=$(curl -fsSL https://support.omadanetworks.com/us/product/omada-software-controller/ | grep -oPi '<a[^>]*href="\K[^"]*Linux_x64.deb[^"]*' | head -n 1)
 if [ -z "$OmadaPackageUrl" ]; then
     echo -e "\e[1;31m[!] Failed to retrieve the Omada Software Controller package URL.\e[0m"
+    echo "Debug: The retrieved URL is empty. Please check the source URL and grep pattern."
     exit 1
 fi
+echo "Debug: Retrieved OmadaPackageUrl: $OmadaPackageUrl"
 wget -qP /tmp/ $OmadaPackageUrl
 if [ ! -f "/tmp/$(basename $OmadaPackageUrl)" ]; then
     echo -e "\e[1;31m[!] Failed to download the Omada Software Controller package.\e[0m"
