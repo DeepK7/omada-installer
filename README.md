@@ -5,6 +5,8 @@ This script was created due to convoluted or outdated guides on the web for inst
 
 Special thanks to @willquill for his Omada Ubuntu 16.04 guide :)
 
+Updated with new script version and fix to Omada Software Controller script.
+
 # Supported releases
 - Ubuntu 22.04 LTS
 - Ubuntu 20.04 LTS
